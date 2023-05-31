@@ -55,3 +55,8 @@ Once data is added to the DB this will be it's shape:
 The `cipher` key contains the probablistic encryption of the actual data. The `searchable` data contains the determinate hashing of the data's key value pairs. 
 
 In practice, each user or organization should use their own salt value so no people will have matching hashes even if they are using the same values. This could be the thumbprint of the key the user or organization is going to use to encrypt/decrypt the data.
+
+## Optional Configurations
+
+## Hashing Keys
+If you are not worried about the keys being readable in the database you can opt out of hashing them. One benefit of doing this would be it will allow you to build indexes on fields to speed up queries.
