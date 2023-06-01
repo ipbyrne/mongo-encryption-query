@@ -3,7 +3,7 @@ import { compactDecrypt } from "jose/jwe/compact/decrypt";
 import { importJWK } from "jose/key/import";
 import { generateKeyPair } from "jose/util/generate_key_pair";
 import { exportJWK } from "jose/key/export";
-import { PublicKeyJwk, PrivateKeyJwk } from "../types";
+import { PublicKeyJwk, PrivateKeyJwk } from "../../types";
 
 const crvToAlg: { [x: string]: string } = {
   X25519: "ECDH-ES+A256KW",

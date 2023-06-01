@@ -1,7 +1,6 @@
 import "dotenv/config";
 import { connect, disconnect } from "../database";
-import { createHashedQuery } from "../hasher";
-import { decrypt } from "../cipher/cipher";
+import MongoEncryption from "../MongoEncryption";
 import { privateKeyJwk } from "../keys";
 import { PrivateKeyJwk } from "../types";
 
@@ -11,15 +10,16 @@ export const findByQuery = async (
 ): Promise<any[] | null> => {
   const connection = await connect();
   const VerifiableCredentials = connection.collection("verifiable-credentials");
-  const hashedQuery = createHashedQuery(query, salt);
-  const credentials = await VerifiableCredentials.find(hashedQuery).toArray();
+  const encryptedQuery = MongoEncryption.encryptQuery(query, salt);
+  const credentials = await VerifiableCredentials.find(
+    encryptedQuery
+  ).toArray();
   if (!credentials) return null;
   const returnData: any[] = [];
   for (let i = 0; i < credentials.length; i += 1) {
     try {
       const cred = credentials[i];
-
-      const decryptedVc = await decrypt(
+      const decryptedVc = await MongoEncryption.decryptData(
         cred.cipher,
         privateKeyJwk as PrivateKeyJwk
       );
