@@ -56,6 +56,12 @@ The `cipher` key contains the probablistic encryption of the actual data. The `s
 
 In practice, each user or organization should use their own salt value so no people will have matching hashes even if they are using the same values. This could be the thumbprint of the key the user or organization is going to use to encrypt/decrypt the data.
 
+Additionally, each user/organization should use their own key pair for encryption. These keys should never be comitted to source or saved in the database directly and ideally would be kept in a service like Google Secret Manager or another providers equivelant service. 
+
+You would then retrieve the keys when encrypting and decrypting data.
+
+The ones in the 'key.js' file are there so you can easily test and play with the repository to understand how everything works together.
+
 ## Optional Configurations
 
 ## Hashing Keys
