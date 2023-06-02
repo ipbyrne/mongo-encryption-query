@@ -1,5 +1,5 @@
-# Mongo Encryption Query
-[![CI](https://github.com/ipbyrne/mongo-encryption-query/actions/workflows/ci.yml/badge.svg)](https://github.com/ipbyrne/mongo-encryption-query/actions/workflows/ci.yml)
+# Mongo Encrypted Query
+[![CI](https://github.com/ipbyrne/mongo-encrypted-query/actions/workflows/ci.yml/badge.svg)](https://github.com/ipbyrne/mongo-encrypted-query/actions/workflows/ci.yml)
 ![Branches](./badges/coverage-branches.svg)
 ![Functions](./badges/coverage-functions.svg)
 ![Lines](./badges/coverage-lines.svg)

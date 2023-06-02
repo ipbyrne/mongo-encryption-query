@@ -8,14 +8,16 @@
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "keywords": [
+        "mongo",
         "mongodb",
         "encryption",
+        "encrypted",
         "query"
     ],
-    "homepage": "https://github.com/ipbyrne/mongo-encryption-query",
+    "homepage": "https://github.com/ipbyrne/mongo-encrypted-query",
     "repository": {
         "type": "git",
-        "url": "https://github.com/ipbyrne/mongo-encryption-query.git"
+        "url": "https://github.com/ipbyrne/mongo-encrypted-query.git"
     },
     "files": [
         "dist",

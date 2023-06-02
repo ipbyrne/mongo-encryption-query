@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { connect, disconnect } from "../database";
-import MongoEncryption from "../../MongoEncryption";
+import MongoEncryption from "../../MongoEncryptedQuery";
 import { privateKeyJwk } from "../keys";
 import { PrivateKeyJwk } from "../types";
 
