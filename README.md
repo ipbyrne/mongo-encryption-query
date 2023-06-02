@@ -8,7 +8,22 @@
 
 This is a simple SDK that can be used to encrypt all of your data in MongoDB in a way that makes it searchable with any MongoDB equality operator.
 
-## To Use
+## How To Use
+
+This package is intended to be layed over any implementation using MongoDB by utilizing 3 functions whenever you are interacting into the database.
+
+### Encrypt Data (`encryptData`)
+This function is to be used whenever you are saving data into the database. You are expected to pass into this functio the data to be saved, the public key you are going to use to encrypt the data, and the salt you want to use to make the data queryable.
+
+### Encrypt Query (`encryptQuery`)
+This function is to be used to format any query you want to use when querying the database. This function takes in the traditional MongoDB query, along with the salt used when saving the data you are trying to query.
+
+### Decrypt Data(`decryptData`)
+This function is used to decrypt the data returned from MongoDB. This function is expecting the data returned from MongoDB, the private key you will use to decrypt the data, and the salt used when saving the data.
+
+This will then return the decrypted data.
+
+## Working In The Repo
 
 To run the test to see how this works in practice you can run:
 ```
