@@ -5,6 +5,7 @@
 ![Lines](./badges/coverage-lines.svg)
 ![Statements](./badges/coverage-statements.svg)
 ![Jest coverage](./badges/coverage-jest%20coverage.svg)
+[![NPM](https://nodei.co/npm/@ipbyrne/mongo-encrypted-query.png?mini=true)](https://npmjs.org/package/@ipbyrne/mongo-encrypted-query)
 
 This is a simple SDK that can be used to encrypt all of your data in MongoDB in a way that makes it searchable with any MongoDB equality operator.
 
