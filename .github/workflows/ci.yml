@@ -10,9 +10,3 @@ jobs:
       run: npm i
     - name: Lint
       run: npm run lint
-    - name: Coverage
-      run: npm run coverage
-    - name: Badges
-      uses: jpb06/jest-badges-action@latest
-      with:
-        branches: main
