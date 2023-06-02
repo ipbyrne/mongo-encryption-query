@@ -3,7 +3,7 @@
   "author": "Isaac Byrne (me@ipbyrne.com)",
   "module": "dist/index.esm.js",
   "license": "Apache-2.0",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "keywords": [
@@ -46,13 +46,13 @@
     "prettier": "^2.6.2",
     "ts-jest": "^28.0.5",
     "ts-node": "^10.8.1",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "mongoose": "^5.12.12",
+    "jest-coverage-badges": "^1.1.2"
   },
   "dependencies": {
     "dotenv": "^16.1.3",
-    "jest-coverage-badges": "^1.1.2",
     "jose": "^3.20.1",
-    "mongoose": "^5.12.12",
     "tslib": "^2.0.1"
   },
   "description": "[![CI](https://github.com/ipbyrne/mongo-encrypted-query/actions/workflows/ci.yml/badge.svg)](https://github.com/ipbyrne/mongo-encrypted-query/actions/workflows/ci.yml) ![Branches](./badges/coverage-branches.svg) ![Functions](./badges/coverage-functions.svg) ![Lines](./badges/coverage-lines.svg) ![Statements](./badges/coverage-statements.svg) ![Jest coverage](./badges/coverage-jest%20coverage.svg)",
