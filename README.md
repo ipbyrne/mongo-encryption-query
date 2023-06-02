@@ -1,6 +1,14 @@
 # Mongo Encryption Query
 
-This is a simple implementation of storing encrypted data in mongo db is this searchable with all equality operators out of the box.
+[![CI](https://github.com/transmute-industries/jsonld/actions/workflows/ci.yml/badge.svg)](https://github.com/transmute-industries/jsonld/actions/workflows/ci.yml)
+![Branches](./badges/coverage-branches.svg)
+![Functions](./badges/coverage-functions.svg)
+![Lines](./badges/coverage-lines.svg)
+![Statements](./badges/coverage-statements.svg)
+![Jest coverage](./badges/coverage-jest%20coverage.svg)
+[![NPM](https://nodei.co/npm/@transmute/jsonld.png?mini=true)](https://npmjs.org/package/@transmute/jsonld)
+
+This is a simple SDK that can be used to encrypt all of your data in MongoDB in a way that makes it searchable with any MongoDB equality operator.
 
 ## To Use
 

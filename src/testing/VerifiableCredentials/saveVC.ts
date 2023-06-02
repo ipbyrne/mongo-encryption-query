@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { connect, disconnect } from "../database";
 import { publicKeyJwk } from "../keys";
-import MongoEncryption from "../MongoEncryption";
+import MongoEncryption from "../../MongoEncryption";
 import { PublicKeyJwk } from "../types";
 
 export const saveVC = async (

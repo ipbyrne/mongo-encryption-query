@@ -1,5 +1,5 @@
 import { generate, encrypt, decrypt } from "./cipher";
-import { PublicKeyJwk, PrivateKeyJwk } from "../../types";
+import { PublicKeyJwk, PrivateKeyJwk } from "../../testing/types";
 
 describe("X25519", () => {
   it("encrypt and decrypt", async () => {

@@ -6,6 +6,11 @@
     "version": "0.0.1",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
+    "homepage": "https://github.com/ipbyrne/mongo-encryption-query",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ipbyrne/mongo-encryption-query.git"
+    },
     "files": [
         "dist",
         "src"
@@ -14,8 +19,12 @@
         "node": ">=16.14.2"
     },
     "scripts": {
-        "build": "tsc --build",
-        "test": "jest --runInBand --forceExit -- "
+        "clean": "rm -rf ./dist",
+        "prebuild": "npm run clean",
+        "build": "tsc -b",
+        "coverage": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules jest --ci --coverage",
+        "test": "jest --runInBand --forceExit -- ",
+        "lint": "eslint ./src --fix"
     },
     "devDependencies": {
         "@types/jest": "^28.1.8",

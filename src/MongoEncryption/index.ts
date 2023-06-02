@@ -4,7 +4,7 @@ import {
   blindIndexHash,
 } from "./hasher";
 import { encrypt, decrypt } from "./cipher/cipher";
-import { PrivateKeyJwk, PublicKeyJwk } from "../types";
+import { PrivateKeyJwk, PublicKeyJwk } from "../testing/types";
 
 export const encryptQuery = (query: any, salt: string) => {
   const hashedQuery = createHashedQuery(query, salt);
