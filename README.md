@@ -1,9 +1,9 @@
 # Mongo Encrypted Query
 [![CI](https://github.com/ipbyrne/mongo-encrypted-query/actions/workflows/ci.yml/badge.svg)](https://github.com/ipbyrne/mongo-encrypted-query/actions/workflows/ci.yml)
-![Branches](./coverage/coverage-branches.svg)
-![Functions](./coverage/coverage-functions.svg)
-![Lines](./coverage/coverage-lines.svg)
-![Statements](./badcoverageges/coverage-statements.svg)
+![Branches](./coverage/badge-branches.svg)
+![Functions](./coverage/badge-functions.svg)
+![Lines](./coverage/badge-lines.svg)
+![Statements](./coverage/badge-statements.svg)
 [![NPM](https://nodei.co/npm/@ipbyrne/mongo-encrypted-query.png?mini=true)](https://npmjs.org/package/@ipbyrne/mongo-encrypted-query)
 
 This is a simple SDK that can be used to encrypt all of your data in MongoDB in a way that makes it searchable with any MongoDB equality operator.
