@@ -1,58 +1,61 @@
 {
-    "name": "@ipbyrne/mongo-encrypted-query",
-    "private": true,
-    "author": "Isaac Byrne (me@ipbyrne.com)",
-    "module": "dist/index.esm.js",
-    "license": "Apache-2.0",
-    "version": "0.0.1",
-    "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
-    "keywords": [
-        "mongo",
-        "mongodb",
-        "encryption",
-        "encrypted",
-        "query"
-    ],
-    "homepage": "https://github.com/ipbyrne/mongo-encrypted-query",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ipbyrne/mongo-encrypted-query.git"
-    },
-    "files": [
-        "dist",
-        "src"
-    ],
-    "engines": {
-        "node": ">=16.14.2"
-    },
-    "scripts": {
-        "clean": "rm -rf ./dist",
-        "prebuild": "npm run clean",
-        "build": "tsc -b",
-        "coverage": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules jest --ci --coverage",
-        "test": "jest --runInBand --forceExit -- ",
-        "lint": "eslint ./src --fix"
-    },
-    "devDependencies": {
-        "@types/jest": "^28.1.8",
-        "@types/node": "^20.2.5",
-        "@typescript-eslint/eslint-plugin": "^5.27.0",
-        "eslint": "^8.16.0",
-        "eslint-config-airbnb-typescript": "^17.0.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-prettier": "^4.0.0",
-        "jest": "^28.1.1",
-        "jest-environment-node": "^28.1.1",
-        "prettier": "^2.6.2",
-        "ts-jest": "^28.0.5",
-        "ts-node": "^10.8.1",
-        "typescript": "^4.7.4"
-    },
-    "dependencies": {
-        "dotenv": "^16.1.3",
-        "jose": "^3.20.1",
-        "mongoose": "^5.12.12",
-        "tslib": "^2.0.1"
-    }
+  "name": "@ipbyrne/mongo-encrypted-query",
+  "author": "Isaac Byrne (me@ipbyrne.com)",
+  "module": "dist/index.esm.js",
+  "license": "Apache-2.0",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "keywords": [
+    "mongo",
+    "mongodb",
+    "encryption",
+    "encrypted",
+    "query"
+  ],
+  "homepage": "https://github.com/ipbyrne/mongo-encrypted-query",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ipbyrne/mongo-encrypted-query.git"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=16.14.2"
+  },
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "prebuild": "npm run clean",
+    "build": "tsc -b",
+    "coverage": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules jest --ci --coverage",
+    "test": "jest --runInBand --forceExit -- ",
+    "lint": "eslint ./src --fix"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.8",
+    "@types/node": "^20.2.5",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "eslint": "^8.16.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^28.1.1",
+    "jest-environment-node": "^28.1.1",
+    "prettier": "^2.6.2",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.1.3",
+    "jose": "^3.20.1",
+    "mongoose": "^5.12.12",
+    "tslib": "^2.0.1"
+  },
+  "description": "[![CI](https://github.com/ipbyrne/mongo-encrypted-query/actions/workflows/ci.yml/badge.svg)](https://github.com/ipbyrne/mongo-encrypted-query/actions/workflows/ci.yml) ![Branches](./badges/coverage-branches.svg) ![Functions](./badges/coverage-functions.svg) ![Lines](./badges/coverage-lines.svg) ![Statements](./badges/coverage-statements.svg) ![Jest coverage](./badges/coverage-jest%20coverage.svg)",
+  "bugs": {
+    "url": "https://github.com/ipbyrne/mongo-encrypted-query/issues"
+  }
 }
