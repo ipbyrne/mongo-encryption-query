@@ -29,7 +29,7 @@
     "clean": "rm -rf ./dist",
     "prebuild": "npm run clean",
     "build": "tsc -b",
-    "coverage": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules jest --ci --coverage",
+    "coverage": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules jest --ci --coverage && jest-coverage-badges",
     "test": "jest --runInBand --forceExit -- ",
     "lint": "eslint ./src --fix"
   },
@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "dotenv": "^16.1.3",
+    "jest-coverage-badges": "^1.1.2",
     "jose": "^3.20.1",
     "mongoose": "^5.12.12",
     "tslib": "^2.0.1"
