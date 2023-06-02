@@ -3,7 +3,7 @@
   "author": "Isaac Byrne (me@ipbyrne.com)",
   "module": "dist/index.esm.js",
   "license": "Apache-2.0",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "keywords": [
@@ -42,15 +42,16 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^28.1.1",
+    "jest-coverage-badges": "^1.1.2",
     "jest-environment-node": "^28.1.1",
+    "mongoose": "^5.12.12",
     "prettier": "^2.6.2",
     "ts-jest": "^28.0.5",
     "ts-node": "^10.8.1",
-    "typescript": "^4.7.4",
-    "mongoose": "^5.12.12",
-    "jest-coverage-badges": "^1.1.2"
+    "typescript": "^4.7.4"
   },
   "dependencies": {
+    "crypto": "^1.0.1",
     "dotenv": "^16.1.3",
     "jose": "^3.20.1",
     "tslib": "^2.0.1"
