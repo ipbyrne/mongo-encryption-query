@@ -93,7 +93,8 @@ export const createHashedQuery = (query: any, organizationId: string) => {
   const hashedQuery = createHashedObject(query, organizationId, true);
   const formattedQuery: any = {};
   Object.keys(hashedQuery).forEach((key) => {
-    formattedQuery[`search.${key}`] = hashedQuery[key];
+    formattedQuery[`${blindIndexHash("search", organizationId)}.${key}`] =
+      hashedQuery[key];
   });
   return formattedQuery;
 };

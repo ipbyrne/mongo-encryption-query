@@ -20,8 +20,9 @@ export const findByQuery = async (
     try {
       const cred = credentials[i];
       const decryptedVc = await MongoEncryption.decryptData(
-        cred.cipher,
-        privateKeyJwk as PrivateKeyJwk
+        cred,
+        privateKeyJwk as PrivateKeyJwk,
+        salt
       );
       returnData.push(decryptedVc);
     } catch (ex) {}
