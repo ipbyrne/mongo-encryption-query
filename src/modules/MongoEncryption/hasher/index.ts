@@ -27,7 +27,6 @@ export const hashKey = (key: string, salt: string) => {
     "$not",
     "$nor",
     "$expr",
-    "$size",
   ];
   if (!exlcudedKeysForQueries.includes(key)) {
     if (key.indexOf(".") >= 0) {
