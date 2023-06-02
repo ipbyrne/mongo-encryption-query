@@ -18,8 +18,13 @@ This function is to be used whenever you are saving data into the database. You 
 ### Encrypt Query (`encryptQuery`)
 This function is to be used to format any query you want to use when querying the database. This function takes in the traditional MongoDB query, along with the salt used when saving the data you are trying to query.
 
-### Decrypt Data(`decryptData`)
+### Decrypt Data (`decryptData`)
 This function is used to decrypt the data returned from MongoDB. This function is expecting the data returned from MongoDB, the private key you will use to decrypt the data, and the salt used when saving the data.
+
+This will then return the decrypted data.
+
+### Generate Encryption Key (`generateEncryptionKeyPair`)
+This function is used to generate a key pair that can be used for encrypting and decrypting the data. These keys should never be saved in source or the database and should be stored in a key service where they are accessed whenever you are encrypting/decrypting data.
 
 This will then return the decrypted data.
 

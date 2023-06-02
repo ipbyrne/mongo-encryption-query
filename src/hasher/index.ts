@@ -1,6 +1,9 @@
+import "dotenv/config";
 import { createHash } from "crypto";
 
 export type ValueToHash = string | any;
+
+const hashKeys = (process.env.HASH_KEYS as string) === "true";
 
 export const hash = (value: ValueToHash) => {
   return createHash("sha256")
@@ -41,11 +44,7 @@ export const hashKey = (key: string, salt: string) => {
   return key;
 };
 
-const traverseAndHash = (
-  data: any,
-  salt: string,
-  hashKeys: boolean = false
-): any => {
+const traverseAndHash = (data: any, salt: string): any => {
   if (
     typeof data === "string" ||
     typeof data === "boolean" ||
@@ -54,16 +53,16 @@ const traverseAndHash = (
     return blindIndexHash(data, salt);
   }
   if (Array.isArray(data)) {
-    return data.map((d: any) => traverseAndHash(d, salt, hashKeys));
+    return data.map((d: any) => traverseAndHash(d, salt));
   }
   if (typeof data === "object") {
     const newObject: any = {};
     Object.keys(data).forEach((key: string) => {
       if (hashKeys) {
         const hashedKey = hashKey(key, salt);
-        newObject[hashedKey] = traverseAndHash(data[key], salt, hashKeys);
+        newObject[hashedKey] = traverseAndHash(data[key], salt);
       } else {
-        newObject[key] = traverseAndHash(data[key], salt, hashKeys);
+        newObject[key] = traverseAndHash(data[key], salt);
       }
     });
     return newObject;
@@ -71,29 +70,26 @@ const traverseAndHash = (
   return data;
 };
 
-export const createHashedObject = (
-  data: any,
-  salt: string,
-  hashKeys: boolean = false
-) => {
+export const createHashedObject = (data: any, salt: string) => {
   const hashedObject: any = {};
   Object.keys(data).forEach((key: string) => {
     if (hashKeys) {
       const hashedKey = hashKey(key, salt);
-      hashedObject[hashedKey] = traverseAndHash(data[key], salt, hashKeys);
+      hashedObject[hashedKey] = traverseAndHash(data[key], salt);
     } else {
-      hashedObject[key] = traverseAndHash(data[key], salt, hashKeys);
+      hashedObject[key] = traverseAndHash(data[key], salt);
     }
   });
   return hashedObject;
 };
 
-export const createHashedQuery = (query: any, organizationId: string) => {
-  const hashedQuery = createHashedObject(query, organizationId, true);
+export const createHashedQuery = (query: any, salt: string) => {
+  const hashedQuery = createHashedObject(query, salt);
   const formattedQuery: any = {};
   Object.keys(hashedQuery).forEach((key) => {
-    formattedQuery[`${blindIndexHash("search", organizationId)}.${key}`] =
-      hashedQuery[key];
+    formattedQuery[
+      `${hashKeys ? blindIndexHash("search", salt) : "search"}.${key}`
+    ] = hashedQuery[key];
   });
   return formattedQuery;
 };

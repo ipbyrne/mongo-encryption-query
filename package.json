@@ -3,7 +3,7 @@
   "author": "Isaac Byrne (me@ipbyrne.com)",
   "module": "dist/index.esm.js",
   "license": "Apache-2.0",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "keywords": [
@@ -30,7 +30,7 @@
     "prebuild": "npm run clean",
     "build": "tsc -b",
     "coverage": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules jest --ci --coverage && jest-coverage-badges",
-    "test": "jest --runInBand --forceExit -- ",
+    "test": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules jest --runInBand --forceExit -- ",
     "lint": "eslint ./src --fix"
   },
   "devDependencies": {

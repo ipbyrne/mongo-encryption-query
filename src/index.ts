@@ -3,8 +3,11 @@ import {
   createHashedObject,
   blindIndexHash,
 } from "./hasher";
-import { encrypt, decrypt } from "./cipher/cipher";
-import { PrivateKeyJwk, PublicKeyJwk } from "../testing/types";
+import { encrypt, decrypt, generate } from "./cipher/cipher";
+import { PrivateKeyJwk, PublicKeyJwk } from "./types";
+import * as Types from "./types";
+
+const hashKeys = (process.env.HASH_KEYS as string) === "true";
 
 export const encryptQuery = (query: any, salt: string) => {
   const hashedQuery = createHashedQuery(query, salt);
@@ -16,15 +19,15 @@ export const encryptData = async (
   publicKeyJwk: PublicKeyJwk,
   salt: string
 ) => {
-  const hashedData = createHashedObject(data, salt, true);
+  const hashedData = createHashedObject(data, salt);
   const encoder = new TextEncoder();
   const cipher = await encrypt(
     Buffer.from(encoder.encode(JSON.stringify(data))),
     publicKeyJwk as PublicKeyJwk
   );
   return {
-    [`${blindIndexHash("cipher", salt)}`]: cipher,
-    [`${blindIndexHash("search", salt)}`]: hashedData,
+    [hashKeys ? `${blindIndexHash("cipher", salt)}` : "cipher"]: cipher,
+    [hashKeys ? `${blindIndexHash("search", salt)}` : "search"]: hashedData,
   };
 };
 
@@ -44,4 +47,6 @@ export default {
   encryptQuery,
   encryptData,
   decryptData,
+  generateEncryptionKeyPair: generate,
+  Types,
 };
