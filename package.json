@@ -1,11 +1,17 @@
 {
     "name": "@ipbyrne/mongo-encrypted-query",
     "private": true,
-    "author": "Isaac Byrne",
+    "author": "Isaac Byrne (me@ipbyrne.com)",
     "module": "dist/index.esm.js",
+    "license": "Apache-2.0",
     "version": "0.0.1",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
+    "keywords": [
+        "mongodb",
+        "encryption",
+        "query"
+    ],
     "homepage": "https://github.com/ipbyrne/mongo-encryption-query",
     "repository": {
         "type": "git",
