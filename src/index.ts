@@ -57,6 +57,6 @@ export default {
   encryptQuery,
   encryptData,
   decryptData,
-  generateEncryptionKeyPair: generate,
+  generateEncryptionPrivateKey: generate,
   Types,
 };

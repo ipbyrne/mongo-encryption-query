@@ -6,7 +6,7 @@
 ![Statements](./coverage/badge-statements.svg)
 [![NPM](https://nodei.co/npm/@ipbyrne/mongo-encrypted-query.png?mini=true)](https://npmjs.org/package/@ipbyrne/mongo-encrypted-query)
 
-This is a simple SDK that can be used to encrypt all of your data in MongoDB in a way that makes it searchable with any MongoDB equality operator.
+This is a simple SDK that can be used to encrypt all of your data in MongoDB in a way that makes it searchable with any MongoDB equality operator by utilizing determinstic symmetric encryption. This acheived by using a `ECDH-ES+A256KW` private key along with the `AES-256-GCM` encryption algorithm.
 
 ## How To Use
 
@@ -25,8 +25,8 @@ This function is used to decrypt the data returned from MongoDB. This function i
 
 This will then return the decrypted data.
 
-### Generate Encryption Key (`generateEncryptionKeyPair`)
-This function is used to generate a key pair that can be used for encrypting and decrypting the data. These keys should never be saved in source or the database and should be stored in a key service where they are accessed whenever you are encrypting/decrypting data.
+### Generate Encryption Key (`generateEncryptionPrivateKey`)
+This function is used to generate a `X25519` private key that can be used for encrypting and decrypting the data. This key should never be saved in source or the database and should be stored in a key service where they are accessed whenever you are encrypting/decrypting data.
 
 ## Working In The Repo
 
