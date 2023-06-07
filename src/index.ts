@@ -3,7 +3,7 @@ import {
   createEncryptedObject,
   createDecryptedObject,
 } from "./utils";
-import { generate } from "./cipher/cipher";
+import { decrypt, generate } from "./cipher/cipher";
 import { PrivateKeyJwk, Data } from "./types";
 import * as Types from "./types";
 
@@ -17,18 +17,26 @@ export const encryptData = (data: Data, privateKeyJwk: PrivateKeyJwk) => {
   return encryptedData;
 };
 
-export const decryptData = (data: Data, privateKeyJwk: PrivateKeyJwk) => {
-  let id;
-  if (data._id) {
-    id = data._id;
-    delete data._id;
+export const decryptData = (data: any, privateKeyJwk: PrivateKeyJwk): any => {
+  const type = typeof data;
+  if (Array.isArray(data)) {
+    return data.map((d: any) => decryptData(d, privateKeyJwk));
   }
-  const decryptedData = createDecryptedObject(
-    data,
-    privateKeyJwk as PrivateKeyJwk
-  );
-  decryptedData._id = id;
-  return decryptedData;
+
+  if (type === "object") {
+    let id;
+    if (data._id) {
+      id = data._id;
+      delete data._id;
+    }
+    const decryptedData = createDecryptedObject(
+      data,
+      privateKeyJwk as PrivateKeyJwk
+    );
+    decryptedData._id = id;
+    return decryptedData;
+  }
+  return decrypt(data, privateKeyJwk as PrivateKeyJwk);
 };
 
 export default {
