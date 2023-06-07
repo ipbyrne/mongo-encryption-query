@@ -1,45 +1,33 @@
 import {
-  createHashedQuery,
-  createHashedObject,
-  blindIndexHash,
-} from "./hasher";
-import { encrypt, decrypt, generate } from "./cipher/cipher";
-import { PrivateKeyJwk, PublicKeyJwk } from "./types";
+  createEntrypedQuery,
+  createEncryptedObject,
+  createDecryptedObject,
+} from "./utils";
+import { generate } from "./cipher/cipher";
+import { PrivateKeyJwk, Data } from "./types";
 import * as Types from "./types";
 
-const hashKeys = (process.env.HASH_KEYS as string) === "true";
-
-export const encryptQuery = (query: any, salt: string) => {
-  const hashedQuery = createHashedQuery(query, salt);
+export const encryptQuery = (query: any, privateKeyJwk: PrivateKeyJwk) => {
+  const hashedQuery = createEntrypedQuery(query, privateKeyJwk);
   return hashedQuery;
 };
 
-export const encryptData = async (
-  data: any,
-  publicKeyJwk: PublicKeyJwk,
-  salt: string
-) => {
-  const hashedData = createHashedObject(data, salt);
-  const encoder = new TextEncoder();
-  const cipher = await encrypt(
-    Buffer.from(encoder.encode(JSON.stringify(data))),
-    publicKeyJwk as PublicKeyJwk
-  );
-  return {
-    [hashKeys ? `${blindIndexHash("cipher", salt)}` : "cipher"]: cipher,
-    [hashKeys ? `${blindIndexHash("search", salt)}` : "search"]: hashedData,
-  };
+export const encryptData = (data: Data, privateKeyJwk: PrivateKeyJwk) => {
+  const encryptedData = createEncryptedObject(data, privateKeyJwk);
+  return encryptedData;
 };
 
-export const decryptData = async (
-  data: any,
-  privateKeyJwk: PrivateKeyJwk,
-  salt: string
-) => {
-  const decryptedData = await decrypt(
-    data[`${blindIndexHash("cipher", salt)}`],
+export const decryptData = (data: Data, privateKeyJwk: PrivateKeyJwk) => {
+  let id;
+  if (data._id) {
+    id = data._id;
+    delete data._id;
+  }
+  const decryptedData = createDecryptedObject(
+    data,
     privateKeyJwk as PrivateKeyJwk
   );
+  decryptedData._id = id;
   return decryptedData;
 };
 

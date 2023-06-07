@@ -1,15 +1,13 @@
-import { CompactEncrypt } from "jose/jwe/compact/encrypt";
-import { compactDecrypt } from "jose/jwe/compact/decrypt";
-import { importJWK } from "jose/key/import";
 import { generateKeyPair } from "jose/util/generate_key_pair";
 import { exportJWK } from "jose/key/export";
-import { PublicKeyJwk, PrivateKeyJwk } from "../types";
+import { PrivateKeyJwk } from "../types";
+import crypto from "crypto";
+
+const enc = "aes-256-gcm";
 
 const crvToAlg: { [x: string]: string } = {
   X25519: "ECDH-ES+A256KW",
 };
-
-const enc = "A256GCM";
 
 export const generate = async (crv = "X25519") => {
   const alg = crvToAlg[crv];
@@ -21,32 +19,24 @@ export const generate = async (crv = "X25519") => {
   return { publicKeyJwk, privateKeyJwk };
 };
 
-export const encrypt = async (
-  plaintext: Buffer,
-  publicKeyJwk: PublicKeyJwk
-) => {
-  const alg = crvToAlg[publicKeyJwk.crv];
-  const key = {
-    ...publicKeyJwk,
-    alg,
-  };
-  const jwe = await new CompactEncrypt(Uint8Array.from(plaintext))
-    .setProtectedHeader({ alg, enc })
-    .encrypt(await importJWK(key));
-  return jwe;
+export const encrypt = (data: any, privateKeyJwk: PrivateKeyJwk) => {
+  const encoder = new TextEncoder();
+  const encodedPrivateKey = encoder.encode(privateKeyJwk.d).slice(0, 32);
+  const initVector = encoder.encode(privateKeyJwk.d).slice(0, 16);
+  const cipher = crypto.createCipheriv(enc, encodedPrivateKey, initVector);
+  const dataType = typeof data;
+  return cipher.update(
+    dataType === "string" ? data : JSON.stringify(data),
+    "utf-8",
+    "hex"
+  );
 };
 
-export const decrypt = async (
-  ciphertext: string,
-  privateKeyJwk: PrivateKeyJwk
-) => {
-  const decoder = new TextDecoder();
-  const alg = crvToAlg[privateKeyJwk.crv];
-  const key = {
-    ...privateKeyJwk,
-    alg,
-  };
-  const { plaintext } = await compactDecrypt(ciphertext, await importJWK(key));
-  const buffer = Buffer.from(plaintext);
-  return JSON.parse(decoder.decode(buffer));
+export const decrypt = (ciphertext: string, privateKeyJwk: PrivateKeyJwk) => {
+  const encoder = new TextEncoder();
+  const encodedPrivateKey = encoder.encode(privateKeyJwk.d).slice(0, 32);
+  const initVector = encoder.encode(privateKeyJwk.d).slice(0, 16);
+  const decipher = crypto.createDecipheriv(enc, encodedPrivateKey, initVector);
+  const decryptedData = decipher.update(ciphertext, "hex", "utf-8");
+  return decryptedData;
 };

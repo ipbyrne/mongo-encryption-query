@@ -1,19 +1,15 @@
 import "dotenv/config";
 import { connect, disconnect } from "../database";
-import { publicKeyJwk } from "../keys";
+import { privateKeyJwk } from "../keys";
 import MongoEncryption from "../../src";
-import { PublicKeyJwk } from "../../src/types";
+import { PrivateKeyJwk } from "../../src/types";
 
-export const saveVC = async (
-  verifiableCredential: any,
-  salt: string = process.env.SALT as string
-) => {
+export const saveVC = async (verifiableCredential: any) => {
   const connection = await connect();
   const VerifiableCredentials = connection.collection("verifiable-credentials");
   const data = await MongoEncryption.encryptData(
     verifiableCredential,
-    publicKeyJwk as PublicKeyJwk,
-    salt
+    privateKeyJwk as PrivateKeyJwk
   );
   const result = await VerifiableCredentials.insertOne(data);
   await disconnect();

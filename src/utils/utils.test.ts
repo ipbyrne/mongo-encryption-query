@@ -1,19 +1,19 @@
-import { blindIndexHash, createHashedObject } from ".";
+import { PrivateKeyJwk } from "../types";
+import { createEncryptedObject } from ".";
+import { encrypt } from "../cipher/cipher";
+import { privateKeyJwk, privateKeyJwkTwo } from "../../testing/keys";
 
 describe("hashing", () => {
   it("can hash with same value and same seed to produce same output", async () => {
-    const salt = "123";
     const message = "It’s a dangerous business, Frodo, going out your door.";
-    const hashOne = blindIndexHash(message, salt);
-    const hashTwo = blindIndexHash(message, salt);
+    const hashOne = encrypt(message, privateKeyJwk as PrivateKeyJwk);
+    const hashTwo = encrypt(message, privateKeyJwk as PrivateKeyJwk);
     expect(hashOne === hashTwo).toBe(true);
   });
   it("can hash with same value and different seed to produce differnt output", async () => {
-    const saltOne = "123";
-    const saltTwo = "456";
     const message = "It’s a dangerous business, Frodo, going out your door.";
-    const hashOne = blindIndexHash(message, saltOne);
-    const hashTwo = blindIndexHash(message, saltTwo);
+    const hashOne = encrypt(message, privateKeyJwk as PrivateKeyJwk);
+    const hashTwo = encrypt(message, privateKeyJwkTwo as PrivateKeyJwk);
     expect(hashOne !== hashTwo).toBe(true);
   });
 });
@@ -59,8 +59,14 @@ describe("hashing payload to make it seachable", () => {
         },
       ],
     };
-    const hashedVersionOne = createHashedObject({ ...objectToHash }, "123");
-    const hashedVersionTwo = createHashedObject({ ...objectToHash }, "456");
+    const hashedVersionOne = createEncryptedObject(
+      { ...objectToHash },
+      privateKeyJwk as PrivateKeyJwk
+    );
+    const hashedVersionTwo = createEncryptedObject(
+      { ...objectToHash },
+      privateKeyJwkTwo as PrivateKeyJwk
+    );
     const objectOneKeys = Object.keys(hashedVersionOne);
     const objectTwoKeys = Object.keys(hashedVersionTwo);
     expect(objectOneKeys[0] === objectTwoKeys[0]).toBe(true);
@@ -113,8 +119,14 @@ describe("hashing payload to make it seachable", () => {
         },
       ],
     };
-    const hashedVersionOne = createHashedObject({ ...objectToHash }, "123");
-    const hashedVersionTwo = createHashedObject({ ...objectToHash }, "456");
+    const hashedVersionOne = createEncryptedObject(
+      { ...objectToHash },
+      privateKeyJwk as PrivateKeyJwk
+    );
+    const hashedVersionTwo = createEncryptedObject(
+      { ...objectToHash },
+      privateKeyJwkTwo as PrivateKeyJwk
+    );
     const objectOneKeys = Object.keys(hashedVersionOne);
     const objectTwoKeys = Object.keys(hashedVersionTwo);
     expect(objectOneKeys[0] !== objectTwoKeys[0]).toBe(true);

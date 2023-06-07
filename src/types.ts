@@ -33,3 +33,7 @@ export interface PublicKeyJwk extends KTY, CRV, X {}
 export interface PrivateKeyJwk extends KTY, CRV, X {
   d: string;
 }
+
+export interface Data {
+  [key: string]: any;
+}

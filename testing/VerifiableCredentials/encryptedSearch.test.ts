@@ -133,7 +133,7 @@ describe("Can save and search encrypted data", () => {
       const results = (await findByQuery({
         "credentialSubject.nestedArrayData.index": 1,
       })) as any[];
-      expect(results[0].credentialSubject.nestedArrayData[0].index).toBe(1);
+      expect(results[0].credentialSubject.nestedArrayData[0].index).toBe("1");
     });
 
     it("should be able to query VC by nested array attributes with $in", async () => {
@@ -142,8 +142,8 @@ describe("Can save and search encrypted data", () => {
           $in: [1, 3],
         },
       })) as any[];
-      expect(results[0].credentialSubject.nestedArrayData[0].index).toBe(3);
-      expect(results[1].credentialSubject.nestedArrayData[0].index).toBe(1);
+      expect(results[0].credentialSubject.nestedArrayData[0].index).toBe("3");
+      expect(results[1].credentialSubject.nestedArrayData[0].index).toBe("1");
     });
   });
 });
