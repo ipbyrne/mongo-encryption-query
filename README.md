@@ -13,20 +13,20 @@ This is a simple SDK that can be used to encrypt all of your data in MongoDB in 
 This package is intended to be layed over any implementation using MongoDB by utilizing 3 functions whenever you are interacting into the database.
 
 ### Encrypt Data (`encryptData`)
-This function is to be used whenever you are saving data into the database. You are expected to pass into this functio the data to be saved, the public key you are going to use to encrypt the data, and the salt you want to use to make the data queryable.
+This function is to be used whenever you are saving data into the database. You are expected to pass into this function the data to be saved and the private key you are going to use to encrypt the data to make the data queryable.
+
+When saving to MongoDB you are expected to pass in an object but it can encrypt any data you pass in (string, number, array, etc).
 
 ### Encrypt Query (`encryptQuery`)
-This function is to be used to format any query you want to use when querying the database. This function takes in the traditional MongoDB query, along with the salt used when saving the data you are trying to query.
+This function is to be used to format any query you want to use when querying the database. This function takes in the traditional MongoDB query, along with the private key used when saving the data you are trying to query.
 
 ### Decrypt Data (`decryptData`)
-This function is used to decrypt the data returned from MongoDB. This function is expecting the data returned from MongoDB, the private key you will use to decrypt the data, and the salt used when saving the data.
+This function is used to decrypt the data returned from MongoDB. This function is expecting the data returned from MongoDB, the private key you will use to decrypt the data.
 
 This will then return the decrypted data.
 
 ### Generate Encryption Key (`generateEncryptionKeyPair`)
 This function is used to generate a key pair that can be used for encrypting and decrypting the data. These keys should never be saved in source or the database and should be stored in a key service where they are accessed whenever you are encrypting/decrypting data.
-
-This will then return the decrypted data.
 
 ## Working In The Repo
 
@@ -88,4 +88,8 @@ The ones in the 'key.js' file are there so you can easily test and play with the
 ## Optional Configurations
 
 ## Encrypting Keys
+In order to encrypt your keys in your database along with the values, you must set the `ENCRYPT_KEYS` `ENV` var to be `'true'`.
+
 If you are not worried about the keys being readable in the database you can opt out of encrypting them. One benefit of doing this would be it will allow you to build indexes on fields to speed up queries.
+
+To opt-out of having your keys encrypted, make sure you set your `ENCRYPT_KEYS` `ENV` var to anything but `'true'` or you do no provide it at all.
