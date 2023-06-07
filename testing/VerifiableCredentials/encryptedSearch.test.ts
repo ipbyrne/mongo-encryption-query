@@ -145,5 +145,15 @@ describe("Can save and search encrypted data", () => {
       expect(results[0].credentialSubject.nestedArrayData[0].index).toBe("3");
       expect(results[1].credentialSubject.nestedArrayData[0].index).toBe("1");
     });
+
+    it("should be able to query VC by multiple values", async () => {
+      const results = (await findByQuery({
+        "credentialSubject.address.zipCode": "77379",
+        "credentialSubject.id": "did:example:234",
+        name: "Test 3",
+      })) as any[];
+      expect(results[0].credentialSubject.id).toBe("did:example:234");
+      expect(results[0].name).toBe("Test 3");
+    });
   });
 });

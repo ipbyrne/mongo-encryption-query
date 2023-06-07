@@ -7,9 +7,20 @@ import { decrypt, encrypt, generate } from "./cipher/cipher";
 import { PrivateKeyJwk, Data } from "./types";
 import * as Types from "./types";
 
-export const encryptQuery = (query: any, privateKeyJwk: PrivateKeyJwk) => {
-  const hashedQuery = createEntrypedQuery(query, privateKeyJwk);
-  return hashedQuery;
+export const encryptQuery = (
+  query: any,
+  privateKeyJwk: PrivateKeyJwk,
+  prefix?: string
+) => {
+  const encryptedQuery = createEntrypedQuery(query, privateKeyJwk);
+  if (prefix) {
+    const prefixedEncryptedQuery: any = {};
+    Object.keys(encryptedQuery).forEach((key: string) => {
+      prefixedEncryptedQuery[`${prefix}.${key}`] = encryptedQuery[key];
+    });
+    return prefixedEncryptedQuery;
+  }
+  return encryptedQuery;
 };
 
 export const encryptData = (

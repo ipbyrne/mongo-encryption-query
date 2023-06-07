@@ -13,14 +13,31 @@ This is a simple SDK that can be used to encrypt all of your data in MongoDB in 
 This package is intended to be layed over any implementation using MongoDB by utilizing 3 functions whenever you are interacting into the database.
 
 ### Encrypt Data (`encryptData`)
+Parameters:
+- Data: This is the data you want to encrypt.
+- Private Key JWK: This is the key you want to use for encryption
+
 This function is to be used whenever you are saving data into the database. You are expected to pass into this function the data to be saved and the private key you are going to use to encrypt the data to make the data queryable.
 
 When saving to MongoDB you are expected to pass in an object but it can encrypt any data you pass in (string, number, array, etc).
 
+Once encrypted you can save the data as is, or under any key value like `data` or something similiar. If you do save the data under a key value, you MUST pass that key to the `encryptQuery` function in order for the query to work.
+
 ### Encrypt Query (`encryptQuery`)
+Parameters:
+- Query: This is a MongoDB query written as if the data was not encrypted.
+- Private Key JWK: This is the key you used to encrypt the data you saved to MongoDB.
+- Prefix: This is the key the data is saved under. If you are saving the data to MongoDB as it comes out of `encryptData` you do not need to provide this parameter.
+
 This function is to be used to format any query you want to use when querying the database. This function takes in the traditional MongoDB query, along with the private key used when saving the data you are trying to query.
 
+As mentioned above, if you save your encrypted data under a specific key value (like `data`), you must pass this key to the `encryptQuery` function in order for the returned query to work.
+
 ### Decrypt Data (`decryptData`)
+Parameters:
+- Data: This is the encrypted data you are trying to decrypt.
+- Private Key JWK: This is the key you used to encrypt the data you saved to MongoDB.
+
 This function is used to decrypt the data returned from MongoDB. This function is expecting the data returned from MongoDB, the private key you will use to decrypt the data.
 
 This will then return the decrypted data.

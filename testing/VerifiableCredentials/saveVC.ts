@@ -4,14 +4,19 @@ import { privateKeyJwk } from "../keys";
 import MongoEncryption from "../../src";
 import { PrivateKeyJwk } from "../../src/types";
 
-export const saveVC = async (verifiableCredential: any) => {
+export const saveVC = async (
+  verifiableCredential: any,
+  usePrefix: boolean = false
+) => {
   const connection = await connect();
   const VerifiableCredentials = connection.collection("verifiable-credentials");
   const data = await MongoEncryption.encryptData(
     verifiableCredential,
     privateKeyJwk as PrivateKeyJwk
   );
-  const result = await VerifiableCredentials.insertOne(data);
+  const result = usePrefix
+    ? await VerifiableCredentials.insertOne({ data })
+    : await VerifiableCredentials.insertOne(data);
   await disconnect();
   return result;
 };

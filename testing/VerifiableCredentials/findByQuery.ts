@@ -4,12 +4,16 @@ import MongoEncryption from "../../src";
 import { privateKeyJwk } from "../keys";
 import { PrivateKeyJwk } from "../../src/types";
 
-export const findByQuery = async (query: any): Promise<any[] | null> => {
+export const findByQuery = async (
+  query: any,
+  usePrefix: boolean = false
+): Promise<any[] | null> => {
   const connection = await connect();
   const VerifiableCredentials = connection.collection("verifiable-credentials");
   const encryptedQuery = MongoEncryption.encryptQuery(
     query,
-    privateKeyJwk as PrivateKeyJwk
+    privateKeyJwk as PrivateKeyJwk,
+    usePrefix ? "data" : undefined
   );
   const credentials = await VerifiableCredentials.find(
     encryptedQuery
@@ -20,7 +24,7 @@ export const findByQuery = async (query: any): Promise<any[] | null> => {
     try {
       const cred = credentials[i];
       const decryptedVc = await MongoEncryption.decryptData(
-        cred,
+        usePrefix ? cred.data : cred,
         privateKeyJwk as PrivateKeyJwk
       );
       returnData.push(decryptedVc);
