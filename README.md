@@ -15,7 +15,8 @@ This package is intended to be layed over any implementation using MongoDB by ut
 ### Encrypt Data (`encryptData`)
 Parameters:
 - Data: This is the data you want to encrypt.
-- Private Key JWK: This is the key you want to use for encryption
+- Private Key JWK: This is the key you want to use for encryption.
+- Enrypt Keys: This is a boolean flag you can set to control if the keys of the object should also be encrypted. This is `true` by default.
 
 This function is to be used whenever you are saving data into the database. You are expected to pass into this function the data to be saved and the private key you are going to use to encrypt the data to make the data queryable.
 
@@ -27,6 +28,7 @@ Once encrypted you can save the data as is, or under any key value like `data` o
 Parameters:
 - Query: This is a MongoDB query written as if the data was not encrypted.
 - Private Key JWK: This is the key you used to encrypt the data you saved to MongoDB.
+- Enrypt Keys: This is a boolean flag you can set to control if the keys of the object should also be encrypted. This is `true` by default.
 - Prefix: This is the key the data is saved under. If you are saving the data to MongoDB as it comes out of `encryptData` you do not need to provide this parameter.
 
 This function is to be used to format any query you want to use when querying the database. This function takes in the traditional MongoDB query, along with the private key used when saving the data you are trying to query.
@@ -37,6 +39,7 @@ As mentioned above, if you save your encrypted data under a specific key value (
 Parameters:
 - Data: This is the encrypted data you are trying to decrypt.
 - Private Key JWK: This is the key you used to encrypt the data you saved to MongoDB.
+- Enrypt Keys: This is a boolean flag you can set to control if the keys of the object should also be encrypted. This is `true` by default.
 
 This function is used to decrypt the data returned from MongoDB. This function is expecting the data returned from MongoDB, the private key you will use to decrypt the data.
 
@@ -105,8 +108,6 @@ The ones in the 'key.js' file are there so you can easily test and play with the
 ## Optional Configurations
 
 ## Encrypting Keys
-In order to encrypt your keys in your database along with the values, you must set the `ENCRYPT_KEYS` `ENV` var to be `'true'`.
+All keys are encrypted by default unless you set `encryptKeys` to `false` when using any of the operations in the package.
 
 If you are not worried about the keys being readable in the database you can opt out of encrypting them. One benefit of doing this would be it will allow you to build indexes on fields to speed up queries.
-
-To opt-out of having your keys encrypted, make sure you set your `ENCRYPT_KEYS` `ENV` var to anything but `'true'` or you do no provide it at all.

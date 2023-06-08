@@ -1,8 +1,8 @@
 import "dotenv/config";
-import { connect, disconnect } from "../database";
-import MongoEncryption from "../..";
-import { privateKeyJwk } from "../keys";
-import { PrivateKeyJwk } from "../../types";
+import { connect, disconnect } from "./database";
+import MongoEncryption from "..";
+import { privateKeyJwk } from "./keys";
+import { PrivateKeyJwk } from "../types";
 
 export const findByQuery = async (
   query: any,
@@ -13,6 +13,7 @@ export const findByQuery = async (
   const encryptedQuery = MongoEncryption.encryptQuery(
     query,
     privateKeyJwk as PrivateKeyJwk,
+    true,
     usePrefix ? "data" : undefined
   );
   const credentials = await VerifiableCredentials.find(

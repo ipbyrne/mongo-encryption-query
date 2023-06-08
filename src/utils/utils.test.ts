@@ -1,7 +1,7 @@
 import { PrivateKeyJwk } from "../types";
 import { createEncryptedObject } from ".";
 import { encrypt } from "../cipher/cipher";
-import { privateKeyJwk, privateKeyJwkTwo } from "../__tests__/keys";
+import { privateKeyJwk, privateKeyJwkTwo } from "../testingUtils/keys";
 
 describe("hashing", () => {
   it("can hash with same value and same seed to produce same output", async () => {
@@ -19,7 +19,7 @@ describe("hashing", () => {
 });
 
 describe("hashing payload to make it seachable", () => {
-  xit("can hash with same value and different seed to produce different outputs without hashing keys", async () => {
+  it("can hash with same value and different seed to produce different outputs without hashing keys", async () => {
     const objectToHash = {
       id: "urn:uuid:123",
       verifiableCredential: [
@@ -61,11 +61,13 @@ describe("hashing payload to make it seachable", () => {
     };
     const hashedVersionOne = createEncryptedObject(
       { ...objectToHash },
-      privateKeyJwk as PrivateKeyJwk
+      privateKeyJwk as PrivateKeyJwk,
+      false
     );
     const hashedVersionTwo = createEncryptedObject(
       { ...objectToHash },
-      privateKeyJwkTwo as PrivateKeyJwk
+      privateKeyJwkTwo as PrivateKeyJwk,
+      false
     );
     const objectOneKeys = Object.keys(hashedVersionOne);
     const objectTwoKeys = Object.keys(hashedVersionTwo);

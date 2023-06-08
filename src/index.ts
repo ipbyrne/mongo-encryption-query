@@ -10,9 +10,10 @@ import * as Types from "./types";
 export const encryptQuery = (
   query: any,
   privateKeyJwk: PrivateKeyJwk,
+  encryptKeys: boolean = true,
   prefix?: string
 ) => {
-  const encryptedQuery = createEntrypedQuery(query, privateKeyJwk);
+  const encryptedQuery = createEntrypedQuery(query, privateKeyJwk, encryptKeys);
   if (prefix) {
     const prefixedEncryptedQuery: any = {};
     Object.keys(encryptedQuery).forEach((key: string) => {
@@ -25,15 +26,20 @@ export const encryptQuery = (
 
 export const encryptData = (
   data: Data | any,
-  privateKeyJwk: PrivateKeyJwk
+  privateKeyJwk: PrivateKeyJwk,
+  encryptKeys: boolean = true
 ): any => {
   const type = typeof data;
   if (Array.isArray(data)) {
-    return data.map((d: any) => encryptData(d, privateKeyJwk));
+    return data.map((d: any) => encryptData(d, privateKeyJwk, encryptKeys));
   }
 
   if (type === "object") {
-    const encryptedData = createEncryptedObject(data, privateKeyJwk);
+    const encryptedData = createEncryptedObject(
+      data,
+      privateKeyJwk,
+      encryptKeys
+    );
     return encryptedData;
   }
   return encrypt(data, privateKeyJwk as PrivateKeyJwk);
@@ -41,11 +47,12 @@ export const encryptData = (
 
 export const decryptData = (
   data: Data | any,
-  privateKeyJwk: PrivateKeyJwk
+  privateKeyJwk: PrivateKeyJwk,
+  encryptKeys: boolean = true
 ): any => {
   const type = typeof data;
   if (Array.isArray(data)) {
-    return data.map((d: any) => decryptData(d, privateKeyJwk));
+    return data.map((d: any) => decryptData(d, privateKeyJwk, encryptKeys));
   }
 
   if (type === "object") {
@@ -56,7 +63,8 @@ export const decryptData = (
     }
     const decryptedData = createDecryptedObject(
       data,
-      privateKeyJwk as PrivateKeyJwk
+      privateKeyJwk as PrivateKeyJwk,
+      encryptKeys
     );
     decryptedData._id = id;
     return decryptedData;

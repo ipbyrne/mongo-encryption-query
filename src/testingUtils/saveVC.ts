@@ -1,8 +1,8 @@
 import "dotenv/config";
-import { connect, disconnect } from "../database";
-import { privateKeyJwk } from "../keys";
-import MongoEncryption from "../..";
-import { PrivateKeyJwk } from "../../types";
+import { connect, disconnect } from "../testingUtils/database";
+import { privateKeyJwk } from "./keys";
+import MongoEncryption from "../.";
+import { PrivateKeyJwk } from "../types";
 
 export const saveVC = async (
   verifiableCredential: any,

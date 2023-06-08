@@ -4,8 +4,6 @@ import { PrivateKeyJwk } from "src/types";
 
 export type ValueToHash = string | any;
 
-const encryptKeys = (process.env.ENCRYPT_KEYS as string) === "true";
-
 export const encryptKey = (key: string, privateKeyJwk: PrivateKeyJwk) => {
   // Supported MongoDB Equality Queries
   const exlcudedKeysForQueries = [
@@ -32,7 +30,11 @@ export const encryptKey = (key: string, privateKeyJwk: PrivateKeyJwk) => {
   return key;
 };
 
-const traverseAndEncrypt = (data: any, privateKeyJwk: PrivateKeyJwk): any => {
+const traverseAndEncrypt = (
+  data: any,
+  privateKeyJwk: PrivateKeyJwk,
+  encryptKeys: boolean = true
+): any => {
   if (
     typeof data === "string" ||
     typeof data === "boolean" ||
@@ -41,16 +43,26 @@ const traverseAndEncrypt = (data: any, privateKeyJwk: PrivateKeyJwk): any => {
     return encrypt(data, privateKeyJwk);
   }
   if (Array.isArray(data)) {
-    return data.map((d: any) => traverseAndEncrypt(d, privateKeyJwk));
+    return data.map((d: any) =>
+      traverseAndEncrypt(d, privateKeyJwk, encryptKeys)
+    );
   }
   if (typeof data === "object") {
     const newObject: any = {};
     Object.keys(data).forEach((key: string) => {
       if (encryptKeys) {
         const encryptedKey = encryptKey(key, privateKeyJwk);
-        newObject[encryptedKey] = traverseAndEncrypt(data[key], privateKeyJwk);
+        newObject[encryptedKey] = traverseAndEncrypt(
+          data[key],
+          privateKeyJwk,
+          encryptKeys
+        );
       } else {
-        newObject[key] = traverseAndEncrypt(data[key], privateKeyJwk);
+        newObject[key] = traverseAndEncrypt(
+          data[key],
+          privateKeyJwk,
+          encryptKeys
+        );
       }
     });
     return newObject;
@@ -60,7 +72,8 @@ const traverseAndEncrypt = (data: any, privateKeyJwk: PrivateKeyJwk): any => {
 
 export const createEncryptedObject = (
   data: any,
-  privateKeyJwk: PrivateKeyJwk
+  privateKeyJwk: PrivateKeyJwk,
+  encryptKeys: boolean = true
 ) => {
   const hashedObject: any = {};
   Object.keys(data).forEach((key: string) => {
@@ -74,7 +87,11 @@ export const createEncryptedObject = (
   return hashedObject;
 };
 
-const traverseAndDecrypt = (data: any, privateKeyJwk: PrivateKeyJwk): any => {
+const traverseAndDecrypt = (
+  data: any,
+  privateKeyJwk: PrivateKeyJwk,
+  encryptKeys: boolean = true
+): any => {
   if (
     typeof data === "string" ||
     typeof data === "boolean" ||
@@ -83,16 +100,26 @@ const traverseAndDecrypt = (data: any, privateKeyJwk: PrivateKeyJwk): any => {
     return decrypt(data as string, privateKeyJwk);
   }
   if (Array.isArray(data)) {
-    return data.map((d: any) => traverseAndDecrypt(d, privateKeyJwk));
+    return data.map((d: any) =>
+      traverseAndDecrypt(d, privateKeyJwk, encryptKeys)
+    );
   }
   if (typeof data === "object") {
     const newObject: any = {};
     Object.keys(data).forEach((key: string) => {
       if (encryptKeys) {
         const decryptedKey = decrypt(key, privateKeyJwk);
-        newObject[decryptedKey] = traverseAndDecrypt(data[key], privateKeyJwk);
+        newObject[decryptedKey] = traverseAndDecrypt(
+          data[key],
+          privateKeyJwk,
+          encryptKeys
+        );
       } else {
-        newObject[key] = traverseAndDecrypt(data[key], privateKeyJwk);
+        newObject[key] = traverseAndDecrypt(
+          data[key],
+          privateKeyJwk,
+          encryptKeys
+        );
       }
     });
     return newObject;
@@ -102,7 +129,8 @@ const traverseAndDecrypt = (data: any, privateKeyJwk: PrivateKeyJwk): any => {
 
 export const createDecryptedObject = (
   data: any,
-  privateKeyJwk: PrivateKeyJwk
+  privateKeyJwk: PrivateKeyJwk,
+  encryptKeys: boolean = true
 ) => {
   const decryptedObject: any = {};
   Object.keys(data).forEach((key: string) => {
@@ -121,8 +149,13 @@ export const createDecryptedObject = (
 
 export const createEntrypedQuery = (
   query: any,
-  privateKeyJwk: PrivateKeyJwk
+  privateKeyJwk: PrivateKeyJwk,
+  encryptKeys: boolean = true
 ) => {
-  const encryptedQuery = createEncryptedObject(query, privateKeyJwk);
+  const encryptedQuery = createEncryptedObject(
+    query,
+    privateKeyJwk,
+    encryptKeys
+  );
   return encryptedQuery;
 };

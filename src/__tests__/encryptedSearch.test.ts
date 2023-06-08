@@ -1,6 +1,6 @@
-import { saveVC } from "./saveVC";
-import { findByQuery } from "./findByQuery";
-import { resetDatabase } from "../database";
+import { saveVC } from "../testingUtils/saveVC";
+import { findByQuery } from "../testingUtils/findByQuery";
+import { resetDatabase } from "../testingUtils/database";
 
 beforeAll(async () => {
   await resetDatabase();
