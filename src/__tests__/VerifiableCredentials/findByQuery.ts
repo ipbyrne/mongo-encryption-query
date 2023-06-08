@@ -1,8 +1,8 @@
 import "dotenv/config";
 import { connect, disconnect } from "../database";
-import MongoEncryption from "../../src";
+import MongoEncryption from "../..";
 import { privateKeyJwk } from "../keys";
-import { PrivateKeyJwk } from "../../src/types";
+import { PrivateKeyJwk } from "../../types";
 
 export const findByQuery = async (
   query: any,

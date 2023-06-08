@@ -1,7 +1,7 @@
 import { PrivateKeyJwk } from "../types";
 import { createEncryptedObject } from ".";
 import { encrypt } from "../cipher/cipher";
-import { privateKeyJwk, privateKeyJwkTwo } from "../../testing/keys";
+import { privateKeyJwk, privateKeyJwkTwo } from "../__tests__/keys";
 
 describe("hashing", () => {
   it("can hash with same value and same seed to produce same output", async () => {
