@@ -1,3 +1,3 @@
-import * as cipher from "./cipher";
+import { generate, encrypt, decrypt } from "./cipher";
 
-export default cipher;
+export default { generate, encrypt, decrypt };

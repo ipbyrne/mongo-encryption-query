@@ -5,7 +5,19 @@ import {
 } from "./utils";
 import { decrypt, encrypt, generate } from "./cipher/cipher";
 import { PrivateKeyJwk, Data } from "./types";
-import * as Types from "./types";
+export {
+  PrivateKeyJwk,
+  Data,
+  HDPath,
+  KeyTypes,
+  KTY,
+  Path,
+  CRV,
+  X,
+  KeyCreateParam,
+  KeyCreateParamFromKey,
+  PublicKeyJwk,
+} from "./types";
 
 export const encryptQuery = (
   query: any,
@@ -77,5 +89,4 @@ export default {
   encryptData,
   decryptData,
   generateEncryptionPrivateKey: generate,
-  Types,
 };
