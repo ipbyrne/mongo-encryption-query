@@ -11,7 +11,7 @@
       "dom",
       "esnext"
     ],
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "module": "NodeNext",
     "noFallthroughCasesInSwitch": true,
     "noEmitHelpers": true,

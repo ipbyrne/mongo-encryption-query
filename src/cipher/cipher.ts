@@ -1,5 +1,4 @@
-import { generateKeyPair } from "jose/util/generate_key_pair";
-import { exportJWK } from "jose/key/export";
+import { generateKeyPair, exportJWK } from "jose";
 import { PrivateKeyJwk } from "../types";
 import crypto from "crypto";
 
